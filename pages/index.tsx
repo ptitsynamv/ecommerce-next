@@ -1,8 +1,11 @@
 import type { InferGetStaticPropsType } from "next";
 import getAllProducts from "@framework/product/get-all-products";
+import { getConfig } from "@framework/api/config";
+import { Layout } from "@components/common";
 
 export async function getStaticProps() {
-  const products = await getAllProducts()
+  const config = getConfig();
+  const products = await getAllProducts(config)
   return { props: { products }, revalidate: 4 * 60 * 60 }
 }
 
@@ -10,7 +13,9 @@ export async function getStaticProps() {
 export default function Home({ products }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <div>
-      {JSON.stringify(products)}
+      {JSON.stringify(products, null, 2)}
     </div>
   )
 }
+
+Home.Layout = Layout

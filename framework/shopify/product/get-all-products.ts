@@ -1,13 +1,11 @@
 import { Product } from '@/framework/common/types/product';
-import {
-  fetchApi,
-  normalizeProduct,
-  getAllProductsQuery,
-} from '@framework/utils';
+import { normalizeProduct, getAllProductsQuery } from '@framework/utils';
 import { ProductConnection } from '@framework/schema';
+import { APIConfig } from '@common/types/api';
 
-const getAllProducts = async (): Promise<Product[]> => {
-  const { data } = await fetchApi<{ products: ProductConnection }>({
+const getAllProducts = async (config: APIConfig): Promise<Product[]> => {
+  const { data } = await config.fetch<{ products: ProductConnection }>({
+    url: config.apiUrl,
     query: getAllProductsQuery,
   });
 
