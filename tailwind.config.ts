@@ -44,6 +44,9 @@ const config: Config = {
         primary: 'var(--text-primary)',
         secondary: 'var(--text-secondary)',
       },
+      maxWidth: {
+        '8xl': '1920px',
+      },
     },
   },
   plugins: [],

@@ -57,5 +57,5 @@
 }
 
 .productImage {
-  @apply relative transition-transform duration-500 block w-full;
+  @apply relative transition-transform duration-500 block h-full w-auto;
 }
