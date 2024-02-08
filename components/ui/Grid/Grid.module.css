@@ -12,3 +12,14 @@
     }
   }
 }
+
+.layoutA {
+  & > *:nth-child(6n + 1),
+  & > *:nth-child(6n + 5) {
+    @apply lg:col-span-2 lg:row-span-2;
+  }
+}
+
+.layoutB {
+  color: blue;
+}
