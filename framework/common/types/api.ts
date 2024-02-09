@@ -1,7 +1,10 @@
 export type APIFetcherOptions = {
   url: string;
   query: string;
+  variables?: Variables;
 };
+
+export type Variables = { [key: string]: string | undefined };
 
 export type APIFetcherResults<T> = { data: T };
 
