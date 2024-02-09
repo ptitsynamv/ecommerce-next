@@ -1,17 +1,23 @@
 import "@assets/main.css";
-
+import { UIProvider } from "@components/ui/context";
 import { AppProps } from "next/app";
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 
-const Noop: FC<{ children?: JSX.Element | JSX.Element[]; }> = ({ children }) => <>{children}</>
+interface Props {
+    children: ReactNode;
+}
 
-function MyApp({ Component, pageProps }: AppProps & { Component: { Layout: FC<{ children?: JSX.Element | JSX.Element[]; }> } }) {
+const Noop: FC<Props> = ({ children }) => <>{children}</>
+
+function MyApp({ Component, pageProps }: AppProps & { Component: { Layout: FC<Props> } }) {
     const Layout = Component.Layout ?? Noop;
 
     return (
-        <Layout>
-            <Component {...pageProps} />
-        </Layout>
+        <UIProvider>
+            <Layout>
+                <Component {...pageProps} />
+            </Layout>
+        </UIProvider>
     )
 }
 
