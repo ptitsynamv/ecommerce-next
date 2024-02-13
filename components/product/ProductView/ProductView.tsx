@@ -6,19 +6,41 @@ import { Button, Container } from '@components/ui'
 import { Product } from '@common/types/product'
 import Image from 'next/image'
 import { ProductSlider, Swatch } from '..'
+import { Choices, getVariant } from '../helpers'
+import { useUI } from '@components/ui/context'
+import useAddItem from '@framework/cart/use-add-item'
+import { useApiProvider } from '@common'
 
 interface Props {
   product: Product
 }
 
-type AvailableChoices = 'color' | 'size' | string;
-
-type Choices = {
-  [P in AvailableChoices]: string;
-}
-
 const ProductView: FC<Props> = ({ product }) => {
   const [choices, setChoices] = useState<Choices>({});
+  const { hooks, fetcher } = useApiProvider();
+
+  const { openSidebar } = useUI();
+  const addItem = useAddItem();
+
+  const variant = getVariant(product, choices);
+
+  const addToCart = async () => {
+    try {
+      const item = {
+        productId: String(product.id),
+        variantId: variant?.id,
+        variantOptions: variant?.options,
+      };
+      openSidebar();
+      const ee = await addItem(item);
+      console.log(ee);
+
+    }
+    catch (e) {
+
+
+    }
+  }
 
   return (
     <Container>
@@ -86,7 +108,7 @@ const ProductView: FC<Props> = ({ product }) => {
           <div>
             <Button
               className={s.button}
-            // onClick={addToCart}
+              onClick={addToCart}
             // isLoading={isLoading}
             >
               Add to Cart

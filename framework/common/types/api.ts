@@ -10,5 +10,20 @@ export type APIFetcherResults<T> = { data: T };
 
 export interface APIConfig {
   apiUrl: string;
-  fetch<T>(options: APIFetcherOptions): Promise<APIFetcherResults<T>>;
+  fetch: ApiFetcher;
+}
+
+export interface ApiHooks {
+  cart: {
+    useAddItem: any;
+  };
+}
+
+export type ApiFetcher<T = any> = (
+  options: APIFetcherOptions
+) => Promise<APIFetcherResults<T>>;
+
+export interface ApiProviderContext {
+  hooks: ApiHooks;
+  fetcher: ApiFetcher;
 }
