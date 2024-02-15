@@ -1,18 +1,27 @@
 import { useCart } from '@common/cart';
+import { createCheckout, getCheckoutQuery } from '@framework/utils';
 
 export default useCart;
 
 export const handler = {
   fetchOptions: {
-    query: '',
+    query: getCheckoutQuery,
   },
-  fetcher: () => {
-    return {
-      data: 'cart is ready',
-    };
+  async fetcher({ fetch, options, input: { checkoutId } }: any) {
+    let checkout;
+
+    if (checkoutId) {
+      const { data } = await fetch({ ...options, variables: { checkoutId } });
+      checkout = data.node;
+    } else {
+      checkout = await createCheckout(fetch);
+    }
+
+    return checkout;
   },
-  useHook: ({ fetch }: any) => {
-    const data = fetch();
-    return data;
+  useHook: ({ useData }: any) => {
+    const data = useData();
+
+    return { data };
   },
 };
