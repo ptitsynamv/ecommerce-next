@@ -5,7 +5,6 @@ import { APIConfig } from '@common/types/api';
 
 const getAllProducts = async (config: APIConfig): Promise<Product[]> => {
   const { data } = await config.fetch<{ products: ProductConnection }>({
-    url: config.apiUrl,
     query: getAllProductsQuery,
   });
 

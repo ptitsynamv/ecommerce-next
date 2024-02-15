@@ -3,9 +3,11 @@ import { Bag, Cross } from '@components/icons'
 import cn from "classnames"
 import Link from 'next/link'
 import { useUI } from '@components/ui/context'
+import useCart from '@framework/cart/use-cart'
 
 const CartSidebar: FC = () => {
   const ui = useUI();
+  const cart = useCart();
 
   const isEmpty = true
 

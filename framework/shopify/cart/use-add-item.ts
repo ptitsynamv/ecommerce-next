@@ -1,13 +1,26 @@
 import { useAddItem } from '@common/cart';
 import { MutationHook } from '@common/types/hooks';
+import { getCheckoutId } from '@framework/utils';
+import { checkoutLineItemsAddMutation } from '@framework/utils/mutations';
 
 export default useAddItem;
 
 export const handler: MutationHook = {
-  fetcher: async ({ fetch, input }) => {
+  fetcherOptions: {
+    query: checkoutLineItemsAddMutation,
+  },
+  fetcher: async ({ fetch, options, input }) => {
     const response = await fetch({
-      url: 'http://localhost:4000/graphql',
-      query: `query { hello }`,
+      ...options,
+      variables: {
+        checkoutId: getCheckoutId(),
+        lineItems: [
+          {
+            varianId: input.varianId,
+            quantity: 1,
+          },
+        ],
+      },
     });
     return response;
   },

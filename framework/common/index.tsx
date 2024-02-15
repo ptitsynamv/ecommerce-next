@@ -1,5 +1,6 @@
 import { ReactNode, createContext, useContext, useMemo } from "react";
-import { APIConfig, ApiHooks, ApiProviderContext } from "./types/api";
+import { APIConfig, ApiProviderContext } from "./types/api";
+import { ApiHooks } from "./types/hooks";
 
 interface ApiProviderProps {
     children: ReactNode | ReactNode[];

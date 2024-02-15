@@ -17,7 +17,6 @@ const getProduct = async (options: {
     data: { productByHandle },
   } = await options.config.fetch<FetchType>({
     query: getProductQuery,
-    url: options.config.apiUrl,
     variables: options.variables,
   });
 
