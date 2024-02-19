@@ -7,8 +7,8 @@ import useCart from '@framework/cart/use-cart'
 
 const CartSidebar: FC = () => {
   const ui = useUI();
-  const cart = useCart();
-  console.log({ cart });
+  const { data } = useCart();
+  console.log({ cart: data });
 
 
   const isEmpty = true

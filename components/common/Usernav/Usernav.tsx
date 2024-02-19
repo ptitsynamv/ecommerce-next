@@ -3,9 +3,11 @@ import style from './Usernav.module.css'
 import Link from "next/link";
 import { Bag as Card, Heart } from "@components/icons";
 import { useUI } from "@components/ui/context";
+import useCart from '@framework/cart/use-cart'
 
 const Usernav: FC = () => {
     const ui = useUI();
+    const { data } = useCart();
 
     return (
         <nav>

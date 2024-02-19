@@ -10,17 +10,19 @@ export const handler: MutationHook = {
     query: checkoutLineItemsAddMutation,
   },
   fetcher: async ({ fetch, options, input }) => {
+    const variables = {
+      checkoutId: getCheckoutId(),
+      lineItems: [
+        {
+          variantId: input.variantId,
+          quantity: 1,
+        },
+      ],
+    };
+
     const response = await fetch({
       ...options,
-      variables: {
-        checkoutId: getCheckoutId(),
-        lineItems: [
-          {
-            varianId: input.varianId,
-            quantity: 1,
-          },
-        ],
-      },
+      variables,
     });
     return response;
   },

@@ -16,4 +16,4 @@ Use https://github.com/ptitsynamv/next-shopify-local
 
 ## Libs
 
-Keen slider, body-scroll-lock, classnames, react-ticker, js-cookie.
+Keen slider, body-scroll-lock, classnames, react-ticker, js-cookie, SWR.
