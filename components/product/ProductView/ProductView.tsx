@@ -32,8 +32,6 @@ const ProductView: FC<Props> = ({ product }) => {
       };
 
       const output = await addItem(item);
-      console.log({ output });
-
       openSidebar();
     }
     catch (e) {

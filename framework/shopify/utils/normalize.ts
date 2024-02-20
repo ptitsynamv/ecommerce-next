@@ -112,7 +112,7 @@ export const normalizeCart = (checkout: Checkout): Cart => {
     },
     taxesIncluded: checkout.taxesIncluded,
     lineItemsSubtotalPrice: +checkout.subtotalPriceV2.amount,
-    totalProce: checkout.totalPriceV2.amount,
+    totalPrice: checkout.totalPriceV2.amount,
     lineItems: checkout.lineItems.edges.map(normalizeLineItem),
     discounts: [],
   };
