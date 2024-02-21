@@ -6,11 +6,11 @@ import { useUI } from '@components/ui/context'
 import useCart from '@framework/cart/use-cart'
 import { LineItem } from '@common/types/cart'
 import { CartItem } from '..'
+import { Button } from '@components/ui'
 
 const CartSidebar: FC = () => {
   const ui = useUI();
   const { data, isEmpty } = useCart();
-  console.log({ cart: data });
 
   const rootClass = cn(
     "h-full flex flex-col",
@@ -86,9 +86,9 @@ const CartSidebar: FC = () => {
                 <span>{data?.totalPrice} {data?.currency.code}</span>
               </div>
             </div>
-            <button>
+            <Button>
               Proceed to checkout
-            </button>
+            </Button>
 
           </div>
         </>
