@@ -11,13 +11,19 @@ import {
 } from '../schema';
 import { Cart, LineItem } from '@common/types/cart';
 
-function normalizeProductImage({
+function normalizeProductImages({
   edges,
 }: {
   edges: ImageEdge[];
 }): ProductImage[] {
   return edges.map(({ node: { originalSrc: url, ...rest } }) => {
-    return { url: `/images/${url}`, ...rest };
+    return {
+      url:
+        process.env.NEXT_PUBLIC_FRAMEWORK === 'shopify_local'
+          ? `/images/${url}`
+          : url ?? '/product-image-placeholder.svg',
+      ...rest,
+    };
   });
 }
 
@@ -89,7 +95,7 @@ export function normalizeProduct(productNode: ShopifyProduct): Product {
     description,
     path: `/${handle}`,
     slug: handle.replace(/^\/+|\/+$/g, ''),
-    images: normalizeProductImage(imageCollection),
+    images: normalizeProductImages(imageCollection),
     price: normalizeProductPrice(priceRange.minVariantPrice),
     options: options
       ? options
@@ -107,6 +113,7 @@ export const normalizeCart = (checkout: Checkout): Cart => {
   return {
     id: checkout.id,
     createdAt: checkout.createdAt,
+    completedAt: checkout.completedAt,
     currency: {
       code: checkout.totalPriceV2.currencyCode,
     },

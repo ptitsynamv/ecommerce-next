@@ -1,8 +1,10 @@
+import { useApiProvider } from '@common';
 import { useCart } from '@common/cart';
 import { UseCart } from '@common/cart/use-cart';
 import { Cart } from '@common/types/cart';
 import { SWRHook } from '@common/types/hooks';
 import { Checkout } from '@framework/schema';
+import Cookies from 'js-cookie';
 import {
   checkoutToCart,
   createCheckout,
@@ -47,11 +49,17 @@ export const handler: SWRHook<UseCartHookDescriptor> = {
   useHook:
     ({ useData }) =>
     () => {
+      const { checkoutCookie } = useApiProvider();
+
       const response = useData({
         swrOptions: {
           revalidateOnFocus: false,
         },
       });
+
+      if (response.data?.createdAt) {
+        Cookies.remove(checkoutCookie);
+      }
 
       return useMemo(() => {
         return {

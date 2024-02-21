@@ -1,11 +1,11 @@
 import { ApiFetcher } from '@common/types/api';
 import { checkoutCreateMutation } from './mutations';
-import { Checkout, CheckoutCreatePayload, Maybe } from '@framework/schema';
+import { Checkout, CheckoutCreatePayload } from '@framework/schema';
 import Cookies from 'js-cookie';
 import {
   SHOPIFY_CHECKOUT_URL_COOKIE,
   SHOPIFY_COOKIE_EXPIRE,
-  SHOPITY_CHECKOUT_ID_COOKIE,
+  SHOPIFY_CHECKOUT_ID_COOKIE,
 } from '@framework/const';
 
 const createCheckout = async (
@@ -28,7 +28,7 @@ const createCheckout = async (
       expires: SHOPIFY_COOKIE_EXPIRE,
     };
 
-    Cookies.set(SHOPITY_CHECKOUT_ID_COOKIE, checkoutId, options);
+    Cookies.set(SHOPIFY_CHECKOUT_ID_COOKIE, checkoutId, options);
     Cookies.set(SHOPIFY_CHECKOUT_URL_COOKIE, checkout.webUrl, options);
   }
 

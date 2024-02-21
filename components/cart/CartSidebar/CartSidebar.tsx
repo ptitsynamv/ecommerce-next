@@ -86,10 +86,9 @@ const CartSidebar: FC = () => {
                 <span>{data?.totalPrice} {data?.currency.code}</span>
               </div>
             </div>
-            <Button>
+            <Button Component="a" href="/api/checkout">
               Proceed to checkout
             </Button>
-
           </div>
         </>
       }

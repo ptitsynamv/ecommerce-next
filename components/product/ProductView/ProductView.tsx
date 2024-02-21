@@ -16,6 +16,7 @@ interface Props {
 
 const ProductView: FC<Props> = ({ product }) => {
   const [choices, setChoices] = useState<Choices>({});
+  const [isLoading, setIsLoaging] = useState(false);
 
   const { openSidebar } = useUI();
   const addItem = useAddItem();
@@ -26,16 +27,17 @@ const ProductView: FC<Props> = ({ product }) => {
     try {
       const item = {
         productId: String(product.id),
-        variantId: String(variant?.id),
-        variantOptions: variant?.options,
+        variantId: String(variant ? variant.id : product.variants[0].id),
         quantity: 1
       };
 
-      const output = await addItem(item);
+      setIsLoaging(true);
+      await addItem(item);
+      setIsLoaging(false);
       openSidebar();
     }
     catch (e) {
-
+      setIsLoaging(false);
     }
   }
 
@@ -106,7 +108,7 @@ const ProductView: FC<Props> = ({ product }) => {
             <Button
               className={s.button}
               onClick={addToCart}
-            // isLoading={isLoading}
+              isLoading={isLoading}
             >
               Add to Cart
             </Button>
